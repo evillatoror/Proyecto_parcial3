@@ -31,3 +31,27 @@ services:
       - "3306:3306"
 
     restart: always
+
+ php:
+
+    build:
+
+      context: ./docker/php
+
+      args:
+
+        php_version: ${PHP_VERSION}
+
+    container_name: ${COMPOSE_PROJECT_NAME}-php
+
+    ports:
+
+      - "${PHP_PORT}:80"
+
+    volumes:
+
+      - ./www:/var/www/html
+
+    links:
+
+      - mysql

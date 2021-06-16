@@ -32,7 +32,9 @@ services:
 
     restart: always
 
- php:
+
+
+  php:
 
     build:
 
@@ -55,3 +57,22 @@ services:
     links:
 
       - mysql
+
+
+  web:
+
+    build: .
+
+    ports:
+
+      - "5000:5000"
+
+  redis:
+
+    image: "redis:alpine"
+
+
+
+
+
+  

@@ -26,14 +26,17 @@ services:
 
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
 
+
     ports:
 
       - "3306:3306"
 
+    networks:
+     - red1
+
     restart: always
 
-
-
+  
   php:
 
     build:
@@ -49,6 +52,9 @@ services:
     ports:
 
       - "${PHP_PORT}:80"
+
+    networks:
+     - red1
 
     volumes:
 
@@ -66,6 +72,9 @@ services:
     ports:
 
       - "5000:5000"
+    
+    networks:
+     - red1
 
     volumes:
 
@@ -78,4 +87,26 @@ services:
   redis:
 
     image: "redis:alpine"
+
   
+networks:
+
+  red1:
+
+    driver: bridge
+
+    ipam:
+
+     config:
+
+       - subnet: 10.5.0.0/16
+
+         gateway: 10.5.0.1
+
+         aux_addresses:
+
+          mysql: 10.5.0.5
+
+          php: 10.5.0.6
+          
+          web: 10.5.0.7
